@@ -9,7 +9,6 @@ const NavBar = () => {
 				<a href="." className="btn btn-ghost normal-case text-3xl">Logo</a>
 			</div>
 			<div className="flex-none gap-4">
-				<AddBubbleButton />
 				<AvatarButton />
 			</div>
 		</div>
