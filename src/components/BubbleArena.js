@@ -1,11 +1,14 @@
+import { useCallback, useEffect, useRef } from 'react';
 import '../input.css';
+import LoadPopUp from './loadPopUp';
 import AddBubbleButton from './AddBubbleButton';
 
 const BubbleArena = () => {
+
     return (
-        <div>
-            <div className='fixed bottom-40 right-60'>
-                <AddBubbleButton /> 
+        <div className="min-h-screen min-w-screen">
+            <div className="flex flex-col items-center">
+                <LoadPopUp />
             </div>
         </div>
     )
