@@ -60,7 +60,7 @@ const fetchBubbles = async () => {
 	return bubbles;
 }
 
-const addBubble = async (bubbleTitle, bubbleNotes, bubbleDue) => {
+export const addBubble = async (bubbleTitle, bubbleNotes, bubbleDue) => {
 	console.log(bubbleTitle, bubbleNotes, bubbleDue);
 	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + (await getBubbleListId()) + '/tasks';
 	const bodyContent = JSON.stringify({ title: bubbleTitle, notes: bubbleNotes, due: bubbleDue });
