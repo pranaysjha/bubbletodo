@@ -1,6 +1,6 @@
-/* global gapi */
+import { getAccessToken } from 'google'
 
-const getAccessToken = () => { return gapi.client.getToken().access_token }
+/* global gapi */
 
 const fetchTaskLists = async () => {
 	let taskLists;

@@ -11,7 +11,7 @@ const AddBubbleForm = () => {
 			        </svg>
                 </label>
                 
-                <div className="card dropdown-content w-96 bg-base-100 shadow-xl">
+                <div className="card dropdown-content w-96 bg-neutral shadow-xl">
                     <div className="card-body">
                         <label className="label">
                             <span className="label-text">Task Name</span>
@@ -21,7 +21,7 @@ const AddBubbleForm = () => {
                             <span className="label-text">Pick a Date</span>
                         </label>
                         <input type="date" className="input input-bordered w-full max-w-xs"></input>
-                        <button className="btn mt-6">Create Bubble</button>
+                        <button className="btn btn-outline mt-6">Create Bubble</button>
                     </div>
                 </div>
             </div>
