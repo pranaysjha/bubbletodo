@@ -1,6 +1,5 @@
-import { getAccessToken } from 'google'
+import { getAccessToken } from './google'
 
-/* global gapi */
 
 const fetchTaskLists = async () => {
 	let taskLists;
@@ -90,4 +89,19 @@ const popBubble = async (bubbleId) => {
 		method: 'DELETE',
 		headers: new Headers({ 'Authorizaion': 'Bearer ' + getAccessToken() })
 	});
+}
+
+export const fetchUserProfile = async () => {
+	let profile;
+	const url = ' https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + getAccessToken();
+	await fetch(url, {
+		method: 'GET',
+		headers: new Headers({ 'Authorization': 'Bearer ' + getAccessToken()})
+	}).then((res) => {
+		return res.json();
+	}).then((userProfile) => {
+		console.log(userProfile);
+		profile = userProfile;
+	});
+	return profile;
 }

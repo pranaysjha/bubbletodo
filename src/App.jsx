@@ -9,7 +9,7 @@ const App = () => {
 
   return (
     <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <div className="App">
+      <div className="App"> 
         <NavBar />
         <BubbleArena />
         <Footer />

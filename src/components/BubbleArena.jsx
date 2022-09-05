@@ -6,7 +6,7 @@ const BubbleArena = () => {
 
     return (
         <div className="">
-            <div className="flex flex-col justify-center items-center w-screen h-screen" onClick={() => {console.log('clicked')}}>
+            <div className="flex flex-col justify-center items-center w-screen h-screen" onClick={() => console.log('clicked')}>
               <LoadPopUp />
             </div>
             <AddBubbleForm />
