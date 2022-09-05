@@ -48,7 +48,7 @@ const getBubbleListId = async (bubbleColor) => {
 	return bubbleList.id;
 }
 
-const fetchBubbles = async (bubbleColor) => {
+/*const fetchBubbles = async (bubbleColor) => {
 	let bubbles;
 	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + (await getBubbleListId(bubbleColor)) + '/tasks';
 	await fetch(url, {
@@ -61,7 +61,7 @@ const fetchBubbles = async (bubbleColor) => {
 		bubbles = bubbleData.items;
 	});
 	return bubbles;
-}
+}*/
 
 export const addBubble = async (bubbleTitle, bubbleDate, bubbleColor) => {
 	bubbleDate += 'T00:00:00.000Z'
@@ -77,7 +77,7 @@ export const addBubble = async (bubbleTitle, bubbleDate, bubbleColor) => {
 	});
 }
 
-const addBubbleTextOnly = async (bubbleTitle, bubbleNotes) => {
+/*const addBubbleTextOnly = async (bubbleTitle, bubbleNotes) => {
 	console.log(bubbleTitle, bubbleNotes);
 	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + (await getBubbleListId()) + '/tasks';
 	const bodyContent = JSON.stringify({ title: bubbleTitle, notes: bubbleNotes });
@@ -87,15 +87,15 @@ const addBubbleTextOnly = async (bubbleTitle, bubbleNotes) => {
 		headers: new Headers({ 'Authorization': 'Bearer ' + getAccessToken() }),
 		body: bodyContent
 	});
-}
+}*/
 
-const popBubble = async (bubbleId) => {
+/*const popBubble = async (bubbleId) => {
 	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + (await getBubbleListId()) + '/tasks/' + bubbleId;
 	await fetch(url, {
 		method: 'DELETE',
 		headers: new Headers({ 'Authorizaion': 'Bearer ' + getAccessToken() })
 	});
-}
+}*/
 
 export const fetchUserProfile = async () => {
 	let profile;
