@@ -16,37 +16,41 @@ const fetchTaskLists = async () => {
 	return taskLists;
 }
 
-const createBubbleList = async () => {
+const createBubbleList = async (bubbleColor) => {
 	const url = 'https://tasks.googleapis.com/tasks/v1/users/@me/lists';
-	const bodyContent = JSON.stringify({ title: 'Bubble To Do' });
+	const bodyContent = JSON.stringify({ title: 'Bubble:' + bubbleColor });
 	await fetch(url, {
 		method: 'POST',
 		headers: new Headers({ 'Authorization': 'Bearer ' + getAccessToken() }),
 		body: bodyContent
 	});
+	console.log('Created a new task list: ' + bubbleColor)
 }
 
-const getBubbleList = async () => {
+const getBubbleList = async (bubbleColor) => {
+	console.log(bubbleColor);
 	const allTaskLists = await fetchTaskLists();
 	for (const currentTaskList of allTaskLists) {
-		if (currentTaskList.title === 'Bubble To Do') {
+		if (currentTaskList.title === 'Bubble:' + bubbleColor) {
 			console.log(currentTaskList);
-			console.log(currentTaskList.id)
+			console.log(currentTaskList.id);
 			return currentTaskList;
 		}
 	}
-	await createBubbleList();
-	getBubbleList();
+	await createBubbleList(bubbleColor);
+	await getBubbleList(bubbleColor);
 }
 
-const getBubbleListId = async () => {
-	const bubbleList = await getBubbleList();
+const getBubbleListId = async (bubbleColor) => {
+	const bubbleList = await getBubbleList(bubbleColor);
+	console.log(bubbleList);
+	console.log(bubbleList.id);
 	return bubbleList.id;
 }
 
-const fetchBubbles = async () => {
+const fetchBubbles = async (bubbleColor) => {
 	let bubbles;
-	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + (await getBubbleListId()) + '/tasks';
+	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + (await getBubbleListId(bubbleColor)) + '/tasks';
 	await fetch(url, {
 		method: 'GET',
 		headers: new Headers({ 'Authorization': 'Bearer ' + getAccessToken() })
@@ -59,10 +63,10 @@ const fetchBubbles = async () => {
 	return bubbles;
 }
 
-export const addBubble = async (bubbleTitle, bubbleNotes, bubbleDue) => {
-	console.log(bubbleTitle, bubbleNotes, bubbleDue);
-	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + (await getBubbleListId()) + '/tasks';
-	const bodyContent = JSON.stringify({ title: bubbleTitle, notes: bubbleNotes, due: bubbleDue });
+export const addBubble = async (bubbleTitle, bubbleDate, bubbleColor) => {
+	console.log(bubbleTitle, bubbleDate, bubbleColor);
+	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + (await getBubbleListId(bubbleColor)) + '/tasks';
+	const bodyContent = JSON.stringify({ title: bubbleTitle, due: bubbleDate });
 	console.log(bodyContent);
 	await fetch(url, {
 		method: 'POST',
@@ -93,7 +97,7 @@ const popBubble = async (bubbleId) => {
 
 export const fetchUserProfile = async () => {
 	let profile;
-	const url = ' https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + getAccessToken();
+	const url = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + getAccessToken();
 	await fetch(url, {
 		method: 'GET',
 		headers: new Headers({ 'Authorization': 'Bearer ' + getAccessToken()})

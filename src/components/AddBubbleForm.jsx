@@ -1,4 +1,5 @@
 import '../input.css';
+import { addBubble } from '../modules/tasks';
 
 const AddBubbleForm = () => {
 
@@ -11,6 +12,21 @@ const AddBubbleForm = () => {
             card.style.display = "none";
         }
     }
+
+    const handleSubmit = () => {
+        const title = document.getElementById('titleInput').value;
+        const date = document.getElementById('dateInput').value;
+        const color = document.getElementById('colorInput').value;
+        console.log(title + " " + date + " " + color);
+        if (title && date && color) {
+            toggleCardVisibility();
+            addBubble(title, date, color);
+        }
+        else {
+            return;
+        }
+    }
+
     return (
         <div className='absolute bottom-0 right-0 mx-3 my-11'>
             <div className="dropdown dropdown-top dropdown-end">
@@ -23,16 +39,30 @@ const AddBubbleForm = () => {
                 <div className="card dropdown-content w-96 bg-neutral shadow-xl" id='card'>
                     <div className="card-body">
                         <label className="label">
-                            <span className="label-text">Task Name</span>
+                            <span className="label-text">Task Title</span>
                         </label>
-                        <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                        <input id="titleInput" type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
                         <label className="label">
-                            <span className="label-text">Pick a Date</span>
+                            <span className="label-text">Due Date</span>
                         </label>
-                        <input type="date" className="input input-bordered w-full max-w-xs"></input>
-                        {/* PRANAY here is the color picker */}
-                        <input type="color" id='colorpicker'/>
-                        <button className="btn btn-outline mt-6" onClick={() => toggleCardVisibility()}>Create Bubble</button>
+                        <input id="dateInput" type="date" className="input input-bordered w-full max-w-xs"></input>
+                        <label className="label">
+                            <span className="label-text">Color</span>
+                        </label>
+                        <select id="colorInput" className="select select-bordered w-full max-w-xs">
+                            <option>Red</option>
+                            <option>Yellow</option>
+                            <option>Blue</option>
+                            <option>Orange</option>
+                            <option>Green</option>
+                            <option>Purple</option>
+                            <option>Pink</option>
+                            <option>Brown</option>
+                            <option>White</option>
+                            <option>Grey</option>
+                            <option>Black</option>
+                        </select>
+                        <button className="btn btn-outline mt-6" onClick={() => handleSubmit()}>Create Bubble</button>
                     </div>
                 </div>
             </div>
