@@ -38,7 +38,7 @@ const getBubbleList = async (bubbleColor) => {
 		}
 	}
 	await createBubbleList(bubbleColor);
-	await getBubbleList(bubbleColor);
+	return await getBubbleList(bubbleColor);
 }
 
 const getBubbleListId = async (bubbleColor) => {
@@ -64,8 +64,10 @@ const fetchBubbles = async (bubbleColor) => {
 }
 
 export const addBubble = async (bubbleTitle, bubbleDate, bubbleColor) => {
+	bubbleDate += 'T00:00:00.000Z'
 	console.log(bubbleTitle, bubbleDate, bubbleColor);
 	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + (await getBubbleListId(bubbleColor)) + '/tasks';
+	console.log(url);
 	const bodyContent = JSON.stringify({ title: bubbleTitle, due: bubbleDate });
 	console.log(bodyContent);
 	await fetch(url, {
