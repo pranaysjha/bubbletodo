@@ -14,15 +14,16 @@ const AddBubbleForm = (props) => {
         }
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const newTitle = document.getElementById('titleInput').value;
         const newDue = document.getElementById('dateInput').value;
         const newColor = document.getElementById('colorInput').value;
         console.log(newTitle + " " + newDue + " " + newColor);
         if (newTitle && newDue && newColor) {
             toggleCardVisibility();
-            const newBubble = addBubbleToTasks(newTitle, newDue, newColor);
+            const newBubble = await addBubbleToTasks(newTitle, newDue, newColor);
             const newDOMBubble = <Bubble
+                key={newBubble.id}
                 id={newBubble.id} 
                 title={newTitle}
                 due={newDue}
@@ -30,6 +31,7 @@ const AddBubbleForm = (props) => {
                 world={props.world}
             />
             props.setBubblesJSX(props.bubblesJSX.push(newDOMBubble));
+            console.log(props.bubblesJSX);
         }
         else {
             return;

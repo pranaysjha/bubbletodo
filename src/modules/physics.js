@@ -45,6 +45,7 @@ export const initArena = () => {
 
   Composite.add(engine.world, [mouseConstraint, gravitySource]);
   console.log('inited Bubble Arena');
+  console.log(gravitySource.position);
   return engine;
 }
 

@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import BubbleArena from "./components/BubbleArena";
 import LoadPopUp from "./components/LoadPopUp";
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import './input.css';
 
 const App = () => {
 
