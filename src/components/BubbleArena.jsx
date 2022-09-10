@@ -57,7 +57,9 @@ const BubbleArena = () => {
     return (
         <div id="bubbleArena" className="w-screen h-screen">
             <AddBubbleForm bubblesJSX={bubblesJSX} setBubblesJSX={setBubblesJSX} world={engine.current.world}/>
-            {bubblesJSX}
+            <div>
+                {bubblesJSX}
+            </div>
         </div>
     )
 }

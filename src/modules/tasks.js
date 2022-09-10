@@ -93,8 +93,8 @@ export const addBubbleToTasks = async (bubbleTitle, bubbleDate, bubbleColor) => 
 	}).then((res) => {
 		return res.json();
 	}).then((fetchedBubble) => {
-		console.log(fetchedBubble.resource);
-		bubble = fetchedBubble.resource;
+		console.log(fetchedBubble);
+		bubble = fetchedBubble;
 	});
 	return bubble;
 }
