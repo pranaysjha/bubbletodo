@@ -6,4 +6,8 @@
   html {
     font-family: 'Helvetica';
   }
+  body {
+    overflow-y: hidden; /* hides y scroll */
+    overflow-x: hidden; /* hides x scroll */
+  }
 }

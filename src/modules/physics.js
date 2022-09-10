@@ -10,6 +10,7 @@ const bubbleCategory = 0x0002;
 
 // module aliases
 const Engine = Matter.Engine,
+    World = Matter.World,
     MouseConstraint = Matter.MouseConstraint,
     Bodies = Matter.Bodies,
     Composite = Matter.Composite,
@@ -99,4 +100,9 @@ const getScaledDiam = (due) => {
   const deltaTime = (dueDate - now) / 3600000; // ms to hrs
   const c = -1 * (MAX_SIZE - MIN_SIZE) / HRS_PER_WK; // scale constant
   return Math.max(Math.min(MAX_SIZE, c * deltaTime + MAX_SIZE), MIN_SIZE)
+}
+
+export const popBubble = (bubble, world) => {
+  bubble.elem.style.visibility = 'hidden';
+  World.remove(world, bubble.body);
 }

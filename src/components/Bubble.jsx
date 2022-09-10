@@ -1,16 +1,18 @@
-import { useEffect } from "react";
-import { initBubble } from "../modules/physics";
+import { useEffect, useRef } from "react";
+import { initBubble, popBubble } from "../modules/physics";
+import { deleteBubbleFromTasks } from "../modules/tasks";
 import '../input.css';
 
 const Bubble = (props) => {
 
+    const bubble = useRef(null);
     useEffect(() => {
-        const bubble = initBubble(props.id, props.due, props.world); //assigns bubble DOM element to Matter body
+        bubble.current = initBubble(props.id, props.due, props.world); //assigns bubble DOM element to Matter body
         (function rerender() {
-            bubble.render();
+            bubble.current.render();
             requestAnimationFrame(rerender);
         })(); // self-invoking
-    }, [props.id, props.due, props.world]);
+    }, [props.id, props.due, props.world, bubble]);
 
     const color = props.color.toLowerCase();
     //let bubbleStyle = "rounded-full "; // circle
@@ -23,15 +25,20 @@ const Bubble = (props) => {
         'position': 'absolute',
         'background': color,
         'cursor': 'move',
-        'user-select': 'none',
+        'userSelect': 'none',
         'display': 'flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'border-radius': '50%'
+        'alignItems': 'center',
+        'justifyContent': 'center',
+        'borderRadius': '50%'
+    }
+
+    const handlePop = () => {
+        deleteBubbleFromTasks(props.id, props.color);
+        popBubble(bubble.current, props.world);
     }
 
     return (
-        <div id={props.id} style={style}>
+        <div id={props.id} style={style} onDoubleClick={() => handlePop()}>
             {props.title}
         </div>
     );

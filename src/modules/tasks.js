@@ -99,13 +99,13 @@ export const addBubbleToTasks = async (bubbleTitle, bubbleDate, bubbleColor) => 
 	return bubble;
 }
 
-/*const popBubble = async (bubbleId) => {
-	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + (await getBubbleListId()) + '/tasks/' + bubbleId;
+export const deleteBubbleFromTasks = async (bubbleId, bubbleColor) => {
+	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + (await getBubbleListId(bubbleColor)) + '/tasks/' + bubbleId;
 	await fetch(url, {
 		method: 'DELETE',
 		headers: new Headers({ 'Authorizaion': 'Bearer ' + getAccessToken() })
 	});
-}*/
+}
 
 export const fetchUserProfile = async () => {
 	let profile;
