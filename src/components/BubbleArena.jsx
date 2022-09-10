@@ -8,12 +8,12 @@ import { initArena, updateEngine } from '../modules/physics';
 const BubbleArena = () => {
 
     const firstRender = useRef(true);
-    const engine = useRef(null);
+    const engine = useRef(initArena());
     const [bubblesJSX, setBubblesJSX] = useState([]); 
 
     useEffect(() => {
         console.log('first render: ' + firstRender.current);
-        const mapBubblesToJSX = async () => {
+        const mapBubblesToJSX = async (world) => {
             let bubbles = [];
             let JSXbubbles = [];
             const bubbleLists = await getAllBubbleLists();
@@ -24,7 +24,7 @@ const BubbleArena = () => {
                 console.log(bubbles);
                 bubbles.forEach((bubble) => {
                     bubble.color = bubbleLists[i].color
-                    JSXbubbles.push(<Bubble key={bubble.id} id={bubble.id} title={bubble.title} due={bubble.due} color={bubble.color} />)
+                    JSXbubbles.push(<Bubble key={bubble.id} id={bubble.id} title={bubble.title} due={bubble.due} color={bubble.color} world={world}/>)
                 });
             }
             //console.log(JSXbubbles);
@@ -45,19 +45,18 @@ const BubbleArena = () => {
             console.log(bubblesJSX);
         }
         if (firstRender.current) {
-            engine.current = initArena();
-            mapBubblesToJSX();
+            mapBubblesToJSX(engine.current.world);
             firstRender.current = false;
         }
-        /*(function update() {
+        (function update() {
             updateEngine(engine.current);
             requestAnimationFrame(update);
-        })();*/
+        })();
     }, [bubblesJSX, setBubblesJSX]);
 
     return (
         <div id="bubbleArena" className="w-screen h-screen">
-            <AddBubbleForm bubblesJSX={bubblesJSX} setBubblesJSX={setBubblesJSX}/>
+            <AddBubbleForm bubblesJSX={bubblesJSX} setBubblesJSX={setBubblesJSX} world={engine.current.world}/>
             {bubblesJSX}
         </div>
     )

@@ -1,4 +1,5 @@
 import Matter from "matter-js";
+import MatterAttractors from "matter-attractors";
 
 const MIN_SIZE = 25;
 const MAX_SIZE = 100;
@@ -8,13 +9,13 @@ const HRS_PER_WK = 168;
 const Engine = Matter.Engine,
     MouseConstraint = Matter.MouseConstraint,
     Bodies = Matter.Bodies,
-    Composite = Matter.Composite;
+    Composite = Matter.Composite,
+    Plugin = Matter.Plugin;
 
+Matter.use(MatterAttractors);
+Plugin.resolve('matter-attractors');
 
 export const initArena = () => {
-  Matter.use(
-    'matter-attractors'
-  );
 
   const engine = Engine.create();
   const mouseConstraint = MouseConstraint.create(
@@ -22,8 +23,8 @@ export const initArena = () => {
   );
 
   const gravitySource = Bodies.circle(
-      document.getElementById('bubbleArena').clientWidth/2, 
-      document.getElementById('bubbleArena').clientHeight/2, 
+      window.innerWidth / 2, 
+      window.innerHeight / 2, 
       1,  //tiny radius
       {
       isStatic: true,
@@ -51,10 +52,10 @@ export const updateEngine = (engine) => {
   Engine.update(engine)
 }
 
-export const initBubble = (id, due) => {
+export const initBubble = (id, due, world) => {
   const initDiam = getScaledDiam(due);
   const bubble = {
-    elem: document.getElementById("bubble" + id),
+    elem: document.getElementById(id),
     body: Bodies.circle(500, 500, initDiam / 2),
     render() {
       const {x, y} = this.body.position;
@@ -63,11 +64,11 @@ export const initBubble = (id, due) => {
       this.elem.style.left = `${x - currentDiam / 2}px`;
       this.elem.style.width = `${currentDiam}px`;
       this.elem.style.height = `${currentDiam}px`;
-      this.body.area(Math.PI * (currentDiam / 2)**2); // area of circle pi * r^2
+      this.body.area = Math.PI * (currentDiam / 2)**2; // area of circle pi * r^2
     }
   };
   console.log(bubble.body);
-  Composite.add(bubble.body);
+  Composite.add(world, bubble.body);
   console.log('bubble ' + id + ' inited');
   return bubble;
 }

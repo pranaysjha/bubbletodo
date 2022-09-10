@@ -27,6 +27,7 @@ const AddBubbleForm = (props) => {
                 title={newTitle}
                 due={newDue}
                 color={newColor}
+                world={props.world}
             />
             props.setBubblesJSX(props.bubblesJSX.push(newDOMBubble));
         }
