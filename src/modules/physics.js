@@ -2,7 +2,7 @@ import Matter from "matter-js";
 import MatterAttractors from "matter-attractors";
 
 const MIN_SIZE = 25;
-const MAX_SIZE = 100;
+const MAX_SIZE = 150;
 const HRS_PER_WK = 168;
 
 // module aliases
@@ -22,15 +22,18 @@ export const initArena = () => {
     engine, {element: document.body}
   );
 
+  engine.gravity.scale = 0;
+  const ground = Bodies.rectangle(window.innerWidth / 2, window.innerHeight, 810, 60, { isStatic: true });
+
   const gravitySource = Bodies.circle(
-      window.innerWidth / 2, 
-      window.innerHeight / 2, 
-      1,  //tiny radius
-      {
+    window.innerWidth / 2,
+    window.innerHeight / 2,
+    1,  //tiny radius
+    {
       isStatic: true,
       plugin: {
         attractors: [
-          function(bodyA, bodyB) {
+          function (bodyA, bodyB) {
             return {
               x: (bodyA.position.x - bodyB.position.x) * 1e-5,
               y: (bodyA.position.y - bodyB.position.y) * 1e-5,
@@ -38,14 +41,14 @@ export const initArena = () => {
           }
         ]
       },
-        collisionFilter: {
-          group: -1
-        }
-  });
+      collisionFilter: {
+        group: -1
+      }
+    });
 
   Composite.add(engine.world, [mouseConstraint, gravitySource]);
   console.log('inited Bubble Arena');
-  console.log(gravitySource.position);
+  console.log(gravitySource);
   return engine;
 }
 
@@ -57,7 +60,16 @@ export const initBubble = (id, due, world) => {
   const initDiam = getScaledDiam(due);
   const bubble = {
     elem: document.getElementById(id),
-    body: Bodies.circle(500, 500, initDiam / 2),
+    body: Bodies.circle(
+      500, 
+      500, 
+      initDiam / 2,
+      {
+        collisionFilter: {
+          group: 1
+        }
+      }
+      ),
     render() {
       const {x, y} = this.body.position;
       const currentDiam = getScaledDiam(due);
@@ -68,7 +80,6 @@ export const initBubble = (id, due, world) => {
       this.body.area = Math.PI * (currentDiam / 2)**2; // area of circle pi * r^2
     }
   };
-  console.log("scaledDIAM: " + getScaledDiam(due));
   console.log(bubble.body);
   Composite.add(world, bubble.body);
   console.log('bubble ' + id + ' inited');
@@ -77,6 +88,7 @@ export const initBubble = (id, due, world) => {
 
 const getScaledDiam = (due) => {
   const YMD = due.split("T")[0].split("-");
+  //subtract 1 from month to ensure it fits 0-11 format
   const dueDate = new Date(YMD[0], YMD[1]-1, YMD[2]);
   const now = new Date();
   const deltaTime = (dueDate - now) / 3600000; // ms to hrs

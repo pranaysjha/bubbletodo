@@ -30,7 +30,7 @@ const AddBubbleForm = (props) => {
                 color={newColor}
                 world={props.world}
             />
-            props.setBubblesJSX(props.bubblesJSX.push(newDOMBubble));
+            props.setBubblesJSX(props.bubblesJSX.concat([newDOMBubble]));
             console.log(props.bubblesJSX);
         }
         else {
