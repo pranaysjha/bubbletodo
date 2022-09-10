@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { initBubble } from "../modules/physics";
 
-
 const Bubble = (props) => {
 
     useEffect(() => {
@@ -15,7 +14,7 @@ const Bubble = (props) => {
     const color = props.color.toLowerCase();
     let bubbleStyle = "rounded-full "; // circle
     bubbleStyle += "bg-" + color + "-500 "; // color
-    bubbleStyle += "flex items-center justify-center";
+    bubbleStyle += "flex items-center justify-center absolute";
     console.log(bubbleStyle);
 
     return (

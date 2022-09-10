@@ -67,6 +67,7 @@ export const initBubble = (id, due, world) => {
       this.body.area = Math.PI * (currentDiam / 2)**2; // area of circle pi * r^2
     }
   };
+  console.log("scaledDIAM: " + getScaledDiam(due));
   console.log(bubble.body);
   Composite.add(world, bubble.body);
   console.log('bubble ' + id + ' inited');
@@ -75,7 +76,7 @@ export const initBubble = (id, due, world) => {
 
 const getScaledDiam = (due) => {
   const YMD = due.split("T")[0].split("-");
-  const dueDate = new Date(YMD[0], YMD[1], YMD[2]);
+  const dueDate = new Date(YMD[0], YMD[1]-1, YMD[2]);
   const now = new Date();
   const deltaTime = (dueDate - now) / 3600000; // ms to hrs
   const c = -1 * (MAX_SIZE - MIN_SIZE) / HRS_PER_WK; // scale constant
