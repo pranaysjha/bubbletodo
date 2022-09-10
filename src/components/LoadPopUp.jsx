@@ -6,7 +6,7 @@ import '../input.css';
 
 const SCOPE = 'https://www.googleapis.com/auth/tasks';
 
-const LoadPopUp = () => {
+const LoadPopUp = (props) => {
 
   useEffect(() => {
     gapiLoad();
@@ -15,7 +15,7 @@ const LoadPopUp = () => {
   const auth = useGoogleLogin({
 		onSuccess: tokenResponse => {
       onSucessCallback(tokenResponse);
-      fetchUserProfile();
+      props.setUser(fetchUserProfile());
       document.getElementById("loadPopUp").style.display = "none";
     },
 		onError: err => console.log(err),

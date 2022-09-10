@@ -1,7 +1,8 @@
 import '../input.css';
-import { addBubble } from '../modules/tasks';
+import Bubble from './Bubble';
+import { addBubbleToTasks } from '../modules/tasks';
 
-const AddBubbleForm = () => {
+const AddBubbleForm = (props) => {
 
     const toggleCardVisibility = () => {
         const card = document.getElementById('card');
@@ -14,13 +15,20 @@ const AddBubbleForm = () => {
     }
 
     const handleSubmit = () => {
-        const title = document.getElementById('titleInput').value;
-        const date = document.getElementById('dateInput').value;
-        const color = document.getElementById('colorInput').value;
-        console.log(title + " " + date + " " + color);
-        if (title && date && color) {
+        const newTitle = document.getElementById('titleInput').value;
+        const newDue = document.getElementById('dateInput').value;
+        const newColor = document.getElementById('colorInput').value;
+        console.log(newTitle + " " + newDue + " " + newColor);
+        if (newTitle && newDue && newColor) {
             toggleCardVisibility();
-            addBubble(title, date, color);
+            const newBubble = addBubbleToTasks(newTitle, newDue, newColor);
+            const newDOMBubble = <Bubble
+                id={newBubble.id} 
+                title={newTitle}
+                due={newDue}
+                color={newColor}
+            />
+            props.setBubblesJSX(props.bubblesJSX.push(newDOMBubble));
         }
         else {
             return;

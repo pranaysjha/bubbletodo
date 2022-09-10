@@ -19,5 +19,5 @@ export const getAccessToken = () => { return gapi.client.getToken().access_token
 
 export const onSucessCallback = (tokenResponse) => {
 	console.log(tokenResponse.access_token);
-	console.log(gapi.client.getToken().access_token);
+	console.log(gapi.client.getToken().access_token)
 };
