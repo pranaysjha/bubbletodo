@@ -5,6 +5,9 @@ const MIN_SIZE = 25;
 const MAX_SIZE = 150;
 const HRS_PER_WK = 168;
 
+const gravitysrcCategory = 0x0001;
+const bubbleCategory = 0x0002;
+
 // module aliases
 const Engine = Matter.Engine,
     MouseConstraint = Matter.MouseConstraint,
@@ -23,7 +26,6 @@ export const initArena = () => {
   );
 
   engine.gravity.scale = 0;
-  const ground = Bodies.rectangle(window.innerWidth / 2, window.innerHeight, 810, 60, { isStatic: true });
 
   const gravitySource = Bodies.circle(
     window.innerWidth / 2,
@@ -42,7 +44,9 @@ export const initArena = () => {
         ]
       },
       collisionFilter: {
-        group: -1
+        group: 0,
+        category: gravitysrcCategory,
+        mask: gravitysrcCategory
       }
     });
 
@@ -66,7 +70,8 @@ export const initBubble = (id, due, world) => {
       initDiam / 2,
       {
         collisionFilter: {
-          group: 1
+          group: 1,
+          category: bubbleCategory
         }
       }
       ),
