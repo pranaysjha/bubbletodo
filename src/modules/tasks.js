@@ -119,5 +119,6 @@ export const fetchUserProfile = async () => {
 		console.log(userProfile);
 		profile = userProfile;
 	});
+	console.log("fetchUserProfile: " + JSON.stringify(profile));
 	return profile;
 }

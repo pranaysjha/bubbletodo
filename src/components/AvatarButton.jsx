@@ -3,6 +3,11 @@ import '../input.css';
 
 const AvatarButton = (props) => {
 
+	if (props.user != null) {
+		console.log("picture: " + props.user.picture);
+		console.log("id: " + props.user.id);
+	}
+
   return (
 		<div className="dropdown dropdown-end">
 			<label tabIndex="0" className="btn btn-ghost btn-circle avatar">
@@ -10,7 +15,7 @@ const AvatarButton = (props) => {
 					{props.user == null ?
 						<img src="https://placeimg.com/80/80/people" alt=""/>
 						:
-						<img src={props.user.picture} alt=""/>
+						<img src={props.user.picture} alt={props.user.id}/>
 					}
 				</div>
 			</label>

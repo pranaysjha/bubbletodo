@@ -13,9 +13,10 @@ const LoadPopUp = (props) => {
   }, [])
 
   const auth = useGoogleLogin({
-		onSuccess: tokenResponse => {
+		onSuccess: async (tokenResponse) => {
       onSucessCallback(tokenResponse);
-      props.setUser(fetchUserProfile());
+      props.setUser(await fetchUserProfile());
+      console.log("profile: " + JSON.stringify(fetchUserProfile()));
       document.getElementById("loadPopUp").style.display = "none";
     },
 		onError: err => console.log(err),

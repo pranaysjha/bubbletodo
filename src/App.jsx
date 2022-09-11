@@ -12,6 +12,8 @@ const App = () => {
 
   const [user, setUser] = useState(null);
 
+  console.log("user: " + JSON.stringify(user));
+
   return (
     <GoogleOAuthProvider clientId={CLIENT_ID}>
       <div className="App">
