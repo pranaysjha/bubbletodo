@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { getAllBubbleLists, getBubblesFromList } from '../modules/tasks'
 import AddBubbleForm from './AddBubbleForm';
 import Bubble from './Bubble';
-import { initArena, updateEngine } from '../modules/physics';
+import { initArena, updateEngine, updateYourMom } from '../modules/physics';
 
 const BubbleArena = () => {
 
@@ -51,6 +51,7 @@ const BubbleArena = () => {
         (function update() {
             updateEngine(engine.current);
             requestAnimationFrame(update);
+            updateYourMom(); //dynamically center gravity src
         })();
     }, [bubblesJSX, setBubblesJSX]);
 

@@ -19,6 +19,29 @@ const Engine = Matter.Engine,
 Matter.use(MatterAttractors);
 Plugin.resolve('matter-attractors');
 
+const gravitySource = Bodies.circle(
+  window.innerWidth / 2,
+  window.innerHeight / 2,
+  1,  //tiny radius
+  {
+    isStatic: true,
+    plugin: {
+      attractors: [
+        function (bodyA, bodyB) {
+          return {
+            x: (bodyA.position.x - bodyB.position.x) * 1e-5,
+            y: (bodyA.position.y - bodyB.position.y) * 1e-5,
+          };
+        }
+      ]
+    },
+    collisionFilter: {
+      group: 0,
+      category: gravitysrcCategory,
+      mask: gravitysrcCategory
+    }
+  });
+
 export const initArena = () => {
 
   const engine = Engine.create();
@@ -28,32 +51,7 @@ export const initArena = () => {
 
   engine.gravity.scale = 0;
 
-  const gravitySource = Bodies.circle(
-    window.innerWidth / 2,
-    window.innerHeight / 2,
-    1,  //tiny radius
-    {
-      isStatic: true,
-      plugin: {
-        attractors: [
-          function (bodyA, bodyB) {
-            return {
-              x: (bodyA.position.x - bodyB.position.x) * 1e-5,
-              y: (bodyA.position.y - bodyB.position.y) * 1e-5,
-            };
-          }
-        ]
-      },
-      collisionFilter: {
-        group: 0,
-        category: gravitysrcCategory,
-        mask: gravitysrcCategory
-      }
-    });
-
   Composite.add(engine.world, [mouseConstraint, gravitySource]);
-  console.log('inited Bubble Arena');
-  console.log(gravitySource);
   return engine;
 }
 
@@ -105,4 +103,9 @@ const getScaledDiam = (due) => {
 export const popBubble = (bubble, world) => {
   bubble.elem.style.visibility = 'hidden';
   World.remove(world, bubble.body);
+}
+
+export const updateYourMom = () => {
+  gravitySource.position.x = window.innerWidth / 2;
+  gravitySource.position.y = window.innerHeight / 2;
 }
