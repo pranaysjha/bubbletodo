@@ -1,7 +1,8 @@
 import Matter from "matter-js";
 import MatterAttractors from "matter-attractors";
 
-const MIN_SIZE = 25;
+//increase min size
+const MIN_SIZE = 40;
 const MAX_SIZE = 150;
 const HRS_PER_WK = 168;
 
@@ -49,6 +50,7 @@ export const initArena = () => {
     engine, {element: document.body}
   );
 
+  //remove default gravity down
   engine.gravity.scale = 0;
 
   Composite.add(engine.world, [mouseConstraint, gravitySource]);

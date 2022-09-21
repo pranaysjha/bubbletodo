@@ -4,13 +4,13 @@ import { addBubbleToTasks } from '../modules/tasks';
 
 const AddBubbleForm = (props) => {
 
-    const toggleCardVisibility = () => {
-        const card = document.getElementById('card');
-        if (card.style.display === "none") {
-            card.style.display = "block";
+    const toggleFormVisibility = () => {
+        const form = document.getElementById('addBubbleForm');
+        if (form.style.display === "block") {
+            form.style.display = "none";
         }
         else {
-            card.style.display = "none";
+            form.style.display = "block";
         }
     }
 
@@ -20,11 +20,11 @@ const AddBubbleForm = (props) => {
         const newColor = document.getElementById('colorInput').value;
         console.log(newTitle + " " + newDue + " " + newColor);
         if (newTitle && newDue && newColor) {
-            toggleCardVisibility();
+            toggleFormVisibility();
             const newBubble = await addBubbleToTasks(newTitle, newDue, newColor);
             const newDOMBubble = <Bubble
                 key={newBubble.id}
-                id={newBubble.id} 
+                id={newBubble.id}
                 title={newTitle}
                 due={newDue}
                 color={newColor}
@@ -39,44 +39,44 @@ const AddBubbleForm = (props) => {
     }
 
     return (
-        <div className='absolute bottom-0 right-0 mx-3 my-11'>
-            <div className="dropdown dropdown-top dropdown-end">
-                <label tabIndex="0" className="btn btn-circle btn-lg" onClick={() => toggleCardVisibility()}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16">
-  			        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-			        </svg>
-                </label>
-                
-                <div className="card dropdown-content w-96 bg-neutral shadow-xl" id='card'>
-                    <div className="card-body">
-                        <label className="label">
-                            <span className="label-text">Task Title</span>
-                        </label>
-                        <input id="titleInput" type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-                        <label className="label">
-                            <span className="label-text">Due Date</span>
-                        </label>
-                        <input id="dateInput" type="date" className="input input-bordered w-full max-w-xs"></input>
-                        <label className="label">
-                            <span className="label-text">Color</span>
-                        </label>
-                        <select id="colorInput" className="select select-bordered w-full max-w-xs">
-                            <option>Red</option>
-                            <option>Yellow</option>
-                            <option>Blue</option>
-                            <option>Orange</option>
-                            <option>Green</option>
-                            <option>Purple</option>
-                            <option>Pink</option>
-                            <option>Brown</option>
-                            <option>White</option>
-                            <option>Grey</option>
-                            <option>Black</option>
-                        </select>
-                        <button className="btn btn-outline mt-6" onClick={() => handleSubmit()}>Create Bubble</button>
-                    </div>
+        // make a flexible grid to hold the button and the form
+        <div className='grid grid-flow-row absolute bottom-0 right-0 mx-3 my-11 z-50'>
+            <div id='addBubbleForm' className="card w-96 bg-neutral shadow-xl hidden">
+                <div className="card-body">
+                    <label className="label">
+                        <span className="label-text">Task Title</span>
+                    </label>
+                    <input id="titleInput" type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                    <label className="label">
+                        <span className="label-text">Due Date</span>
+                    </label>
+                    <input id="dateInput" type="date" className="input input-bordered w-full max-w-xs"></input>
+                    <label className="label">
+                        <span className="label-text">Color</span>
+                    </label>
+                    <select id="colorInput" className="select select-bordered w-full max-w-xs">
+                        <option>Red</option>
+                        <option>Yellow</option>
+                        <option>Blue</option>
+                        <option>Orange</option>
+                        <option>Green</option>
+                        <option>Purple</option>
+                        <option>Pink</option>
+                        <option>Brown</option>
+                        <option>White</option>
+                        <option>Grey</option>
+                        <option>Black</option>
+                    </select>
+                    <button className="btn btn-outline mt-6" onClick={() => handleSubmit()}>Create Bubble</button>
                 </div>
-            </div>
+            </div> 
+
+            <label id='addBubbleButton' tabIndex="0" className="btn btn-circle btn-lg place-self-end" onClick={() => toggleFormVisibility()}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                </svg>
+            </label>
+
         </div>
     );
 }
