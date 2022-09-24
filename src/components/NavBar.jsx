@@ -3,7 +3,7 @@ import AvatarButton from "./AvatarButton";
 
 const NavBar = (props) => {
 	return (
-		<div id="navbar" className="navbar absolute">
+		<div id="navbar" className="navbar absolute z-50">
 			<div className="flex-1">
 				<a href="." className="btn btn-ghost normal-case text-3xl">Logo</a>
 			</div>
