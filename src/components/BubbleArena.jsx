@@ -42,7 +42,6 @@ const BubbleArena = () => {
                 )
             );*/ //not sure why this is not working
             console.log('mapped');
-            console.log(bubblesJSX);
         }
         if (firstRender.current) {
             mapBubblesToJSX(engine.current.world);

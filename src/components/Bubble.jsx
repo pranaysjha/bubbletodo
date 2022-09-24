@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { initBubble, popBubble } from "../modules/physics";
-import { deleteBubbleFromTasks } from "../modules/tasks";
+import { setTaskToComplete } from "../modules/tasks";
 import '../input.css';
 
 const Bubble = (props) => {
@@ -33,7 +33,7 @@ const Bubble = (props) => {
     }
 
     const handlePop = () => {
-        deleteBubbleFromTasks(props.id, props.color);
+        setTaskToComplete(props.id, props.color);
         popBubble(bubble.current, props.world);
     }
 

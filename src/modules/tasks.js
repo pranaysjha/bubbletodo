@@ -107,6 +107,37 @@ export const deleteBubbleFromTasks = async (bubbleId, bubbleColor) => {
 	});
 }
 
+const getBubble = async (bubbleListId, bubbleId) => {
+	const url = 'https://tasks.googleapis.com/tasks/v1/list/' + bubbleListId + '/tasks/' + bubbleId;
+	await fetch(url, {
+		method: 'GET',
+		headers: new Headers({ 'Authorization': 'Bearer ' + getAccessToken() }),
+		mode: "no-cors"
+	}).then((res) => {
+		const resJSON = res.json();
+		console.log(resJSON);
+		return resJSON;
+	});
+}
+
+export const setTaskToComplete = async (bubbleId, bubbleColor) => {
+	const bubbleListId = await getBubbleListId(bubbleColor);
+	const bubbleResource = await getBubble(bubbleListId, bubbleId);
+	bubbleResource.status = "completed";
+	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + bubbleListId + '/tasks/' + bubbleId;
+	console.log(url);
+	const bodyContent = JSON.stringify(bubbleResource);
+	await fetch(url, {
+		method: 'PATCH',
+		headers: new Headers({ 'Authorization': 'Bearer ' + getAccessToken() }),
+		body: bodyContent
+	}).then((res) => {
+		const resJSON = res.json();
+		console.log(resJSON);
+		return resJSON;
+	});
+}
+
 export const fetchUserProfile = async () => {
 	let profile;
 	const url = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + getAccessToken();
