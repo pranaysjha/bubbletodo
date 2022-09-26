@@ -123,7 +123,7 @@ const getBubble = async (bubbleListId, bubbleId) => {
 export const setTaskToComplete = async (bubbleId, bubbleColor) => {
 	const bubbleListId = await getBubbleListId(bubbleColor);
 	const bubbleResource = await getBubble(bubbleListId, bubbleId);
-	bubbleResource.status = "completed";
+	// bubbleResource.status = "completed";
 	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + bubbleListId + '/tasks/' + bubbleId;
 	console.log(url);
 	const bodyContent = JSON.stringify(bubbleResource);

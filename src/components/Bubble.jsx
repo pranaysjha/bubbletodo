@@ -37,9 +37,18 @@ const Bubble = (props) => {
         popBubble(bubble.current, props.world);
     }
 
+    let bubbleTitle;
+    if (props.title.length > 10) {
+        bubbleTitle = props.title.substring(0, 9) + "...";
+    }
+    else {
+        bubbleTitle = props.title;
+    }
+
     return (
         <div id={props.id} style={style} onDoubleClick={() => handlePop()}>
-            {props.title}
+            {/* `${y - currentDiam / 2}px`; */}
+            <p className="text-center">{bubbleTitle}</p>
         </div>
     );
 }

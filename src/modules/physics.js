@@ -2,7 +2,7 @@ import Matter from "matter-js";
 import MatterAttractors from "matter-attractors";
 
 //increase min size
-const MIN_SIZE = 40;
+const MIN_SIZE = 70;
 const MAX_SIZE = 150;
 const HRS_PER_WK = 168;
 
@@ -65,6 +65,7 @@ export const initBubble = (id, due, world) => {
   const initDiam = getScaledDiam(due);
   const bubble = {
     elem: document.getElementById(id),
+    dueDate: due,
     body: Bodies.circle(
       500, 
       500, 
@@ -92,7 +93,7 @@ export const initBubble = (id, due, world) => {
   return bubble;
 }
 
-const getScaledDiam = (due) => {
+export const getScaledDiam = (due) => {
   const YMD = due.split("T")[0].split("-");
   //subtract 1 from month to ensure it fits 0-11 format
   const dueDate = new Date(YMD[0], YMD[1]-1, YMD[2]);
