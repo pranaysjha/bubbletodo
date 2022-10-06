@@ -107,34 +107,45 @@ export const deleteBubbleFromTasks = async (bubbleId, bubbleColor) => {
 	});
 }
 
-const getBubble = async (bubbleListId, bubbleId) => {
+/*const getBubble = async (bubbleListId, bubbleId) => {
+	let bubble;
 	const url = 'https://tasks.googleapis.com/tasks/v1/list/' + bubbleListId + '/tasks/' + bubbleId;
 	await fetch(url, {
 		method: 'GET',
-		headers: new Headers({ 'Authorization': 'Bearer ' + getAccessToken() }),
-		mode: "no-cors"
+		headers: new Headers({
+			'Authorization': 'Bearer ' + getAccessToken(),
+			'Access-Control-Allow-Origin': 'http://localhost:3000/' 
+		}),
 	}).then((res) => {
-		const resJSON = res.json();
-		console.log(resJSON);
-		return resJSON;
+		return res;
+	}).then((fetchedBubble) => {
+		console.log(fetchedBubble);
+		bubble = fetchedBubble;
 	});
-}
+	return bubble;
+}*/
 
 export const setTaskToComplete = async (bubbleId, bubbleColor) => {
 	const bubbleListId = await getBubbleListId(bubbleColor);
-	const bubbleResource = await getBubble(bubbleListId, bubbleId);
-	bubbleResource.status = "completed";
+	/*const bubbles = await getBubblesFromList(bubbleListId);
+	let poppedBubble;
+	for (let i = 0; i < bubbles.length; i++) {
+		if (bubbles[i].id === bubbleId) {
+			poppedBubble = bubbles[i];
+			break;
+		}
+	}
+	poppedBubble.status = "completed";
+	console.log(poppedBubble);*/
 	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + bubbleListId + '/tasks/' + bubbleId;
 	console.log(url);
-	const bodyContent = JSON.stringify(bubbleResource);
+	const bodyContent = JSON.stringify({ status: 'completed' });
 	await fetch(url, {
 		method: 'PATCH',
 		headers: new Headers({ 'Authorization': 'Bearer ' + getAccessToken() }),
-		body: bodyContent
+		body: bodyContent 
 	}).then((res) => {
-		const resJSON = res.json();
-		console.log(resJSON);
-		return resJSON;
+		return res.json();
 	});
 }
 
