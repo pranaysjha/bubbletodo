@@ -22,7 +22,7 @@ Plugin.resolve('matter-attractors');
 
 const gravitySource = Bodies.circle(
   window.innerWidth / 2,
-  window.innerHeight / 2,
+  window.innerHeight / 2, 
   1,  //tiny radius
   {
     isStatic: true,
