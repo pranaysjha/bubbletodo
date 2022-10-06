@@ -127,6 +127,7 @@ export const deleteBubbleFromTasks = async (bubbleId, bubbleColor) => {
 
 export const setTaskToComplete = async (bubbleId, bubbleColor) => {
 	const bubbleListId = await getBubbleListId(bubbleColor);
+<<<<<<< HEAD
 	/*const bubbles = await getBubblesFromList(bubbleListId);
 	let poppedBubble;
 	for (let i = 0; i < bubbles.length; i++) {
@@ -137,6 +138,10 @@ export const setTaskToComplete = async (bubbleId, bubbleColor) => {
 	}
 	poppedBubble.status = "completed";
 	console.log(poppedBubble);*/
+=======
+	const bubbleResource = await getBubble(bubbleListId, bubbleId);
+	// bubbleResource.status = "completed";
+>>>>>>> 7bfb850795250f957085798aa1259d572809d75d
 	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + bubbleListId + '/tasks/' + bubbleId;
 	console.log(url);
 	const bodyContent = JSON.stringify({ status: 'completed' });
