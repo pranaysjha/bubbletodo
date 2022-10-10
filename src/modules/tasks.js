@@ -72,8 +72,14 @@ export const getBubblesFromList = async (id) => {
 	}).then((res) => {
 		return res.json();
 	}).then((bubbleData) => {
-		console.log(bubbleData.items);
-		bubbles = bubbleData.items;
+		console.log("here is the bubble data")
+		console.log(bubbleData.items)
+		for (let i = 0; i < bubbleData.items.length; i++) {
+			console.log(bubbleData.items[i].status);
+			if (bubbleData.items[i].status !== "completed") {
+				bubbles.push(bubbleData.items[i]);
+			}
+		}
 	});
 	return bubbles;
 }
