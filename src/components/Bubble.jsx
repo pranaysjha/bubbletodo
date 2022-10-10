@@ -33,7 +33,7 @@ const Bubble = (props) => {
     }
 
     const handlePop = () => {
-        setTaskToComplete(props.id, props.color);
+        setTaskToComplete(props.id, props.color, props.title, props.due);
         popBubble(bubble.current, props.world);
     }
 

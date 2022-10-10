@@ -78,12 +78,12 @@ export const getBubblesFromList = async (id) => {
 	return bubbles;
 }
 
-export const addBubbleToTasks = async (bubbleTitle, bubbleDate, bubbleColor) => {
-	bubbleDate += 'T00:00:00.000Z'
-	console.log(bubbleTitle, bubbleDate, bubbleColor);
+export const addBubbleToTasks = async (bubbleTitle, bubbleDate, bubbleColor, bubbleStatus) => {
+	if (!(bubbleStatus === "completed")) bubbleDate += 'T00:00:00.000Z';
+	console.log("this ran");
 	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + (await getBubbleListId(bubbleColor)) + '/tasks';
 	console.log(url);
-	const bodyContent = JSON.stringify({ title: bubbleTitle, due: bubbleDate });
+	const bodyContent = JSON.stringify({ title: bubbleTitle, due: bubbleDate, status: bubbleStatus });
 	console.log(bodyContent);
 	let bubble;
 	await fetch(url, {
@@ -125,27 +125,14 @@ export const deleteBubbleFromTasks = async (bubbleId, bubbleColor) => {
 	return bubble;
 }*/
 
-export const setTaskToComplete = async (bubbleId, bubbleColor) => {
+export const setTaskToComplete = async (bubbleId, bubbleColor, bubbleTitle, bubbleDate) => {
+	addBubbleToTasks(bubbleTitle, bubbleDate, bubbleColor, "completed");
 	const bubbleListId = await getBubbleListId(bubbleColor);
-	/*const bubbles = await getBubblesFromList(bubbleListId);
-	let poppedBubble;
-	for (let i = 0; i < bubbles.length; i++) {
-		if (bubbles[i].id === bubbleId) {
-			poppedBubble = bubbles[i];
-			break;
-		}
-	}
-	poppedBubble.status = "completed";
-	console.log(poppedBubble);*/
 	const url = 'https://tasks.googleapis.com/tasks/v1/lists/' + bubbleListId + '/tasks/' + bubbleId;
 	console.log(url);
-	const bodyContent = JSON.stringify({ status: 'completed' });
 	await fetch(url, {
-		method: 'PATCH',
+		method: 'DELETE',
 		headers: new Headers({ 'Authorization': 'Bearer ' + getAccessToken() }),
-		body: bodyContent 
-	}).then((res) => {
-		return res.json();
 	});
 }
 

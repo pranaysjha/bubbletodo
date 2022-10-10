@@ -21,7 +21,7 @@ const AddBubbleForm = (props) => {
         console.log(newTitle + " " + newDue + " " + newColor);
         if (newTitle && newDue && newColor) {
             toggleFormVisibility();
-            const newBubble = await addBubbleToTasks(newTitle, newDue, newColor);
+            const newBubble = await addBubbleToTasks(newTitle, newDue, newColor, "needsAction");
             const newDOMBubble = <Bubble
                 key={newBubble.id}
                 id={newBubble.id}
