@@ -1,5 +1,5 @@
 import Matter from "matter-js";
-import MatterAttractors from "matter-attractors";
+import MatterAttractors, { Body } from "matter-attractors";
 
 //increase min size
 const MIN_SIZE = 70;
@@ -8,6 +8,8 @@ const HRS_PER_WK = 168;
 
 const gravitysrcCategory = 0x0001;
 const bubbleCategory = 0x0002;
+
+// let hovering = false;
 
 // module aliases
 const Engine = Matter.Engine,
@@ -61,6 +63,10 @@ export const updateEngine = (engine) => {
   Engine.update(engine)
 }
 
+/*
+* Assign DOM element to matter bubble
+* Ran in useEffect of Bubble.jsx
+*/
 export const initBubble = (id, due, world) => {
   const initDiam = getScaledDiam(due);
   const bubble = {
@@ -77,9 +83,18 @@ export const initBubble = (id, due, world) => {
         }
       }
       ),
-    render() {
+    render(hovering) {
       const {x, y} = this.body.position;
-      const currentDiam = getScaledDiam(due);
+      let currentDiam = getScaledDiam(due);
+      if (hovering) {
+        currentDiam = 300;
+        // this.body.area = Math.PI * (currentDiam / 2)**2; // area of circle pi * r^2
+        Matter.Body.scale(this.body, 1.0005, 1.0005);
+        console.log("hovering ran");
+      }
+      else {
+        this.body.area = Math.PI * (initDiam / 2)**2; // area of circle pi * r^2
+      }
       this.elem.style.top = `${y - currentDiam / 2}px`;
       this.elem.style.left = `${x - currentDiam / 2}px`;
       this.elem.style.width = `${currentDiam}px`;
@@ -108,6 +123,9 @@ export const popBubble = (bubble, world) => {
   World.remove(world, bubble.body);
 }
 
+/*
+* When user resizes the window your mom re-centers
+*/
 export const updateYourMom = () => {
   gravitySource.position.x = window.innerWidth / 2;
   gravitySource.position.y = window.innerHeight / 2;

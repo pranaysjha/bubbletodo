@@ -1,15 +1,17 @@
 import { useEffect, useRef } from "react";
-import { initBubble, popBubble } from "../modules/physics";
+import { initBubble, popBubble, toggleHovering } from "../modules/physics";
 import { setTaskToComplete } from "../modules/tasks";
 import '../input.css';
 
 const Bubble = (props) => {
 
+    let hovering = false;
+
     const bubble = useRef(null);
     useEffect(() => {
         bubble.current = initBubble(props.id, props.due, props.world); //assigns bubble DOM element to Matter body
         (function rerender() {
-            bubble.current.render();
+            bubble.current.render(hovering);
             requestAnimationFrame(rerender);
         })(); // self-invoking
     }, [props.id, props.due, props.world, bubble]);
@@ -37,6 +39,11 @@ const Bubble = (props) => {
         popBubble(bubble.current, props.world);
     }
 
+    // const toggleHover = () => {
+    //     hovering = !hovering;
+    //     console.log("hovering:" + hovering);
+    // }
+
     let bubbleTitle;
     if (props.title.length > 10) {
         bubbleTitle = props.title.substring(0, 9) + "...";
@@ -45,8 +52,10 @@ const Bubble = (props) => {
         bubbleTitle = props.title;
     }
 
+    //when we hover over it, can we make it expand
+    //when mouse leaves, can we reduce its size
     return (
-        <div id={props.id} style={style} onDoubleClick={() => handlePop()}>
+        <div id={props.id} style={style} onDoubleClick={() => handlePop()} onMouseEnter={() => hovering = true} onMouseLeave={() => hovering = false}>
             {/* `${y - currentDiam / 2}px`; */}
             <p className="text-center">{bubbleTitle}</p>
         </div>
