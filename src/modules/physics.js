@@ -86,15 +86,15 @@ export const initBubble = (id, due, world) => {
     render(hovering) {
       const {x, y} = this.body.position;
       let currentDiam = getScaledDiam(due);
-      if (hovering) {
-        currentDiam = 300;
-        // this.body.area = Math.PI * (currentDiam / 2)**2; // area of circle pi * r^2
-        Matter.Body.scale(this.body, 1.0005, 1.0005);
-        console.log("hovering ran");
-      }
-      else {
-        this.body.area = Math.PI * (initDiam / 2)**2; // area of circle pi * r^2
-      }
+      // if (hovering) {
+      //   currentDiam = 300;
+      //   // this.body.area = Math.PI * (currentDiam / 2)**2; // area of circle pi * r^2
+      //   Matter.Body.scale(this.body, 1.0005, 1.0005);
+      //   console.log("hovering ran");
+      // }
+      // else {
+      //   this.body.area = Math.PI * (initDiam / 2)**2; // area of circle pi * r^2
+      // }
       this.elem.style.top = `${y - currentDiam / 2}px`;
       this.elem.style.left = `${x - currentDiam / 2}px`;
       this.elem.style.width = `${currentDiam}px`;

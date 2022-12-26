@@ -39,23 +39,47 @@ const Bubble = (props) => {
         popBubble(bubble.current, props.world);
     }
 
-    // const toggleHover = () => {
-    //     hovering = !hovering;
-    //     console.log("hovering:" + hovering);
-    // }
-
     let bubbleTitle;
-    if (props.title.length > 10) {
-        bubbleTitle = props.title.substring(0, 9) + "...";
-    }
-    else {
-        bubbleTitle = props.title;
+    const setBubbleTitle = () => {
+        if (props.title.length > 10) {
+            bubbleTitle = props.title.substring(0, 9) + "...";
+        }
+        else {
+            bubbleTitle = props.title;
+        }
     }
 
+    // have to do this so that the titles are properly set on first render
+    setBubbleTitle();
+    
+    //called on mouse enter and leave
+    const toggleHover = () => {
+        hovering = !hovering;
+        if (hovering) {
+            let due =  props.due;
+            const YMD = due.split("T")[0].split("-");
+            //subtract 1 from month to ensure it fits 0-11 format
+            const dueDate = new Date(YMD[0], YMD[1] - 1, YMD[2]);
+            const now = new Date();
+            const daysUntil = Math.round((dueDate - now) / (3600000 * 24)); // ms to days
+            if (daysUntil == 1) {
+                bubbleTitle = daysUntil + " day"
+            }
+            else {
+                bubbleTitle = daysUntil + " days"
+            }
+        }
+        else {
+            setBubbleTitle();
+        }
+        document.getElementById(props.id).innerHTML = bubbleTitle;
+    }
+
+    
     //when we hover over it, can we make it expand
     //when mouse leaves, can we reduce its size
     return (
-        <div id={props.id} style={style} onDoubleClick={() => handlePop()} onMouseEnter={() => hovering = true} onMouseLeave={() => hovering = false}>
+        <div id={props.id} style={style} onDoubleClick={() => handlePop()} onMouseEnter={() => toggleHover()} onMouseLeave={() => toggleHover()}>
             {/* `${y - currentDiam / 2}px`; */}
             <p className="text-center">{bubbleTitle}</p>
         </div>
