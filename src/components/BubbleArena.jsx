@@ -1,9 +1,9 @@
+import { useEffect, useRef, useState } from 'react';
 import '../input.css';
-import { useEffect, useState, useRef } from 'react';
-import { getAllBubbleLists, getBubblesFromList } from '../modules/tasks'
+import { initArena, updateEngine, updateYourMom } from '../modules/physics';
+import { getAllBubbleLists, getBubblesFromList } from '../modules/tasks';
 import AddBubbleForm from './AddBubbleForm';
 import Bubble from './Bubble';
-import { initArena, updateEngine, updateYourMom } from '../modules/physics';
 
 const BubbleArena = () => {
 

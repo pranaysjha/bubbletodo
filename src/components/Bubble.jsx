@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
+import '../input.css';
 import { initBubble, popBubble } from "../modules/physics";
 import { setTaskToComplete } from "../modules/tasks";
-import '../input.css';
 
 const Bubble = (props) => {
 

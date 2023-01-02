@@ -1,8 +1,8 @@
 import { useGoogleLogin } from '@react-oauth/google';
-import { gapiLoad, onSucessCallback } from '../modules/google';
-import { fetchUserProfile } from '../modules/tasks';
 import { useEffect } from 'react';
 import '../input.css';
+import { gapiLoad, onSucessCallback } from '../modules/google';
+import { fetchUserProfile } from '../modules/tasks';
 
 const SCOPE = 'https://www.googleapis.com/auth/tasks';
 

@@ -1,6 +1,6 @@
 import '../input.css';
-import Bubble from './Bubble';
 import { addBubbleToTasks } from '../modules/tasks';
+import Bubble from './Bubble';
 
 const AddBubbleForm = (props) => {
 
