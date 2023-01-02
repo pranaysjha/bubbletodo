@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { initBubble, popBubble, toggleHovering } from "../modules/physics";
+import { initBubble, popBubble } from "../modules/physics";
 import { setTaskToComplete } from "../modules/tasks";
 import '../input.css';
 
@@ -14,7 +14,7 @@ const Bubble = (props) => {
             bubble.current.render(hovering);
             requestAnimationFrame(rerender);
         })(); // self-invoking
-    }, [props.id, props.due, props.world, bubble]);
+    }, [props.id, props.due, props.world, hovering, bubble]);
 
     const color = props.color.toLowerCase();
     //let bubbleStyle = "rounded-full "; // circle
@@ -62,7 +62,7 @@ const Bubble = (props) => {
             const dueDate = new Date(YMD[0], YMD[1] - 1, YMD[2]);
             const now = new Date();
             const daysUntil = Math.round((dueDate - now) / (3600000 * 24)); // ms to days
-            if (daysUntil == 1) {
+            if (daysUntil === 1) {
                 bubbleTitle = daysUntil + " day"
             }
             else {

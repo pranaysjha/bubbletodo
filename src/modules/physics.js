@@ -1,5 +1,5 @@
 import Matter from "matter-js";
-import MatterAttractors, { Body } from "matter-attractors";
+import MatterAttractors from "matter-attractors";
 
 //increase min size
 const MIN_SIZE = 70;

@@ -1,8 +1,4 @@
-import { useState } from 'react';
 import '../input.css';
-
-
-
 
 const PolicyPopup = (props) => {
 
